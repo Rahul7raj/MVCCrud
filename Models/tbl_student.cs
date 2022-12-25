@@ -13,7 +13,7 @@ namespace MyThirdProject.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    public partial class tbl_student
+    public partial class tbl_student  //fully encapsulated class
     {
         public int Id { get; set; }
 

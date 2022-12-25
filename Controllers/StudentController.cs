@@ -45,5 +45,31 @@ namespace MyThirdProject.Controllers
                 return View(data);
             }
         }
+
+        public ActionResult Update(int id)
+        {
+            var data = dbobj.tbl_student.Where(x=>x.Id == id).SingleOrDefault();
+            return View(data);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Update(int id, tbl_student model)  //Method Overloading
+        {
+            var data = dbobj.tbl_student.FirstOrDefault(x => x.Id == id);
+
+            if(data != null)
+            {
+                data.FName = model.FName;
+                data.LName = model.LName;
+                data.Mobile_Number = model.Mobile_Number;
+                data.Email = model.Email;
+                data.About = model.About;
+                dbobj.SaveChanges();
+
+                return RedirectToAction("ReadData");
+            }
+            return View();
+        }
     }
 }
