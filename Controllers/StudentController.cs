@@ -71,5 +71,32 @@ namespace MyThirdProject.Controllers
             }
             return View();
         }
+
+        public ActionResult ConfirmDelete(int id)
+        {
+            var data = dbobj.tbl_student.FirstOrDefault(x => x.Id == id);
+            return View(data);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id)
+        {
+            var data = dbobj.tbl_student.FirstOrDefault(x => x.Id == id);
+            if(data!=null)
+            {
+                dbobj.tbl_student.Remove(data);
+                dbobj.SaveChanges();
+                return RedirectToAction("ReadData");
+            }
+            else
+                return View();
+        }
+
+        public ActionResult Details(int id)  //For displaying details of particular records
+        {
+            var data = dbobj.tbl_student.FirstOrDefault(x => x.Id == id);
+            return View(data);
+        }
     }
 }
